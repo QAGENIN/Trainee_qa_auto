@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "trainee-qa-auto"
+version = "0.1.0"
+description = ""
+authors = ["Roman Satymbaev <konev9494@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.9.8"
+pytest = "^7.4.2"
+selene = "2.0.0rc4"
+beautifulsoup4 = "^4.12.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
