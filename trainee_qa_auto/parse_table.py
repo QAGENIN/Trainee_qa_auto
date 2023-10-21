@@ -24,6 +24,7 @@ def parsing_table():
 
     table = soup.find('table', {'class': 'wikitable sortable'})
 
+    website_data_list = []
     for row in table.find_all('tr'):
         columns = row.find_all('td')
         if len(columns) > 0:
@@ -39,4 +40,5 @@ def parsing_table():
             data = WebsiteData(
                 company_name, popularity, front_end, back_end, database, notes
             )
-            return data
+            website_data_list.append(data)
+    return website_data_list
