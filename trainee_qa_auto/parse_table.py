@@ -1,3 +1,5 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup
 from dataclasses import dataclass
@@ -22,17 +24,13 @@ def parsing_table():
 
     table = soup.find('table', {'class': 'wikitable sortable'})
 
-    data_list = []
-
     for row in table.find_all('tr'):
         columns = row.find_all('td')
         if len(columns) > 0:
             company_name = columns[0].get_text().strip()
             values = [column.get_text().strip() for column in columns]
 
-            popularity = (
-                values[1].replace(',', '') if values[1] != 'None' else 'None'
-            )
+            popularity = re.sub('[^0-9]', '', values[1].split('[')[0])
             front_end = values[2]
             back_end = values[3]
             database = values[4]
@@ -41,4 +39,4 @@ def parsing_table():
             data = WebsiteData(
                 company_name, popularity, front_end, back_end, database, notes
             )
-            data_list.append(data)
+            return data
