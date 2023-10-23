@@ -17,10 +17,8 @@ class WebsiteData:
 
 def parsing_table():
     url = 'https://en.wikipedia.org/wiki/Programming_languages_used_in_most_popular_websites'
-    response = requests.get(url)
-    html_content = response.text
-
-    soup = BeautifulSoup(html_content, 'html.parser')
+    response = requests.get(url).text
+    soup = BeautifulSoup(response, 'html.parser')
 
     table = soup.find('table', {'class': 'wikitable sortable'})
 

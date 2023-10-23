@@ -3,18 +3,25 @@ import re
 import pytest
 from trainee_qa_auto.parse_table import parsing_table
 
+website_table = parsing_table()
+test_value_list = [
+    10**7,
+    1.5 * 10**7,
+    5 * 10**7,
+    10**8,
+    10**9,
+    1.5 * 10**9,
+]
 
-@pytest.mark.parametrize(
-    'expected',
-    [10**7, 1.5 * 10**7, 5 * 10**7, 10**8, 10**9, 1.5 * 10**9],
-)
-def test_most_popular_programming_language(expected):
-    data_list = parsing_table()
+
+@pytest.mark.parametrize('website', website_table)
+def test_most_popular_programming_language(website):
     pattern = r'\[[^\]]+\]'
-    for data in data_list:
-        try:
-            assert int(data.popularity) > expected
-        except AssertionError:
-            print(
-                f'\n\n{data.company} (Frontend:{re.sub(pattern, "", data.front_end)} | Backend:{re.sub(pattern, "", data.back_end)}) has {data.popularity} unique visitors per month.(Expected more than {expected})\n\n'
+    mistakes = []
+    for value in test_value_list:
+        if int(website.popularity) < value:
+            mistakes.append(
+                f'{website.company}(Frontend:{re.sub(pattern, "", website.front_end)} | Backend:{re.sub(pattern, "", website.back_end)} has '
+                f'{website.popularity} unique visitors per month. (expected more than {value})'
             )
+        assert not mistakes, '\n'.join(mistakes)
