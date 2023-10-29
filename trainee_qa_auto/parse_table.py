@@ -29,7 +29,7 @@ def parsing_table():
             company_name = columns[0].get_text().strip()
             values = [column.get_text().strip() for column in columns]
 
-            popularity = re.sub('[^0-9]', '', values[1].split('[')[0])
+            popularity = int(re.sub('[^0-9]', '', values[1].split('[')[0]))
             front_end = values[2]
             back_end = values[3]
             database = values[4]

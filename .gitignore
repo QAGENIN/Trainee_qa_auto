@@ -1,1 +1,4 @@
 .idea
+poetry.lock
+.pytest_cache
+.gitignore
